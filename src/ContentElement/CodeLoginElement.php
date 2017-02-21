@@ -17,6 +17,18 @@ class CodeLoginElement extends ContentElement
     protected $strTemplate = 'ce_code_login';
 
     /**
+     * @inheritDoc
+     */
+    public function generate()
+    {
+        if (FE_USER_LOGGED_IN) {
+            return '';
+        }
+
+        return parent::generate();
+    }
+
+    /**
      * @inheritdoc
      */
     protected function compile()
