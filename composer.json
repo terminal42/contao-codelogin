@@ -1,0 +1,31 @@
+{
+    "name": "terminal42/codelogin",
+    "description": "Code Login extension for Contao Open Source CMS",
+    "keywords": ["contao", "login", "code"],
+    "type": "contao-module",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "terminal42 gmbh",
+            "homepage": "http://www.terminal42.ch"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.0",
+        "contao/core-bundle": "~4.3"
+    },
+    "require-dev": {
+        "contao/manager-plugin": "^2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Terminal42\\CodeLoginBundle\\": "src"
+        }
+    },
+    "conflict": {
+        "contao/manager-plugin": "<2.0 || >=3.0"
+    },
+    "extra": {
+        "contao-manager-plugin": "Terminal42\\CodeLoginBundle\\ContaoManager\\Plugin"
+    }
+}
