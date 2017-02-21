@@ -17,3 +17,11 @@ $GLOBALS['TL_DCA']['tl_member']['fields']['login_code'] = [
     'eval'      => ['maxlength' => 32, 'tl_class' => 'clr'],
     'sql'       => "varchar(32) NOT NULL default ''",
 ];
+
+/**
+ * Adjust mandatoriness of the rest login fields
+ */
+$GLOBALS['TL_DCA']['tl_member']['fields']['username']['eval']['mandatory']   = false;
+$GLOBALS['TL_DCA']['tl_member']['fields']['username']['eval']['nullIfEmpty'] = true;
+$GLOBALS['TL_DCA']['tl_member']['fields']['password']['eval']['mandatory']   = false;
+$GLOBALS['TL_DCA']['tl_member']['fields']['password']['eval']['nullIfEmpty'] = true;
