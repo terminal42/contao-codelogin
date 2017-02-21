@@ -1,8 +1,8 @@
 {
-    "name": "terminal42/codelogin",
+    "name": "terminal42/contao-codelogin",
     "description": "Code Login extension for Contao Open Source CMS",
     "keywords": ["contao", "login", "code"],
-    "type": "contao-module",
+    "type": "contao-bundle",
     "license": "MIT",
     "authors": [
         {
