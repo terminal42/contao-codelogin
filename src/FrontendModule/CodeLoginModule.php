@@ -1,26 +1,42 @@
 <?php
 
-namespace Terminal42\CodeLoginBundle\ContentElement;
+namespace Terminal42\CodeLoginBundle\FrontendModule;
 
-use Contao\ContentElement;
+use Contao\BackendTemplate;
 use Contao\Controller;
 use Contao\Environment;
 use Contao\Input;
+use Contao\Module;
+use Patchwork\Utf8;
 use Terminal42\CodeLoginBundle\Security\User\CodeLoginUser;
 
-class CodeLoginElement extends ContentElement
+class CodeLoginModule extends Module
 {
     /**
      * Template
      * @var string
      */
-    protected $strTemplate = 'ce_code_login';
+    protected $strTemplate = 'mod_code_login';
 
     /**
-     * @inheritDoc
+     * Display a wildcard in the back end
+     *
+     * @return string
      */
     public function generate()
     {
+        if (TL_MODE === 'BE') {
+            $template = new BackendTemplate('be_wildcard');
+
+            $template->wildcard = '### '.Utf8::strtoupper($GLOBALS['TL_LANG']['FMD']['code_login'][0]).' ###';
+            $template->title    = $this->headline;
+            $template->id       = $this->id;
+            $template->link     = $this->name;
+            $template->href     = 'contao/main.php?do=themes&amp;table=tl_module&amp;act=edit&amp;id='.$this->id;
+
+            return $template->parse();
+        }
+
         if (FE_USER_LOGGED_IN) {
             return '';
         }

@@ -1,6 +1,6 @@
 <?php
 
 /**
- * Content elements
+ * Frontend modules
  */
-$GLOBALS['TL_CTE']['includes']['code_login'] = 'Terminal42\CodeLoginBundle\ContentElement\CodeLoginElement';
+$GLOBALS['FE_MOD']['user']['code_login'] = 'Terminal42\CodeLoginBundle\FrontendModule\CodeLoginModule';
