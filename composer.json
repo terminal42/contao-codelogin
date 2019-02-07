@@ -26,6 +26,6 @@
         "contao/manager-plugin": "<2.0 || >=3.0"
     },
     "extra": {
-        "contao-manager-plugin": "Terminal42\\CodeLoginBundle\\ContaoManager\\Plugin"
+        "contao-manager-plugin": "Terminal42\\CodeloginBundle\\ContaoManager\\Plugin"
     }
 }
