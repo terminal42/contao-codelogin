@@ -1,6 +1,6 @@
 <?php
 
-namespace Terminal42\CodeLoginBundle\Security\User;
+namespace Terminal42\CodeloginBundle\Security\User;
 
 use Contao\CoreBundle\Monolog\ContaoContext;
 use Contao\FrontendUser;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Terminal42\CodeLoginBundle\FrontendModule;
+namespace Terminal42\CodeloginBundle\FrontendModule;
 
 use Contao\BackendTemplate;
 use Contao\Environment;
@@ -8,7 +8,7 @@ use Contao\Frontend;
 use Contao\Input;
 use Contao\Module;
 use Patchwork\Utf8;
-use Terminal42\CodeLoginBundle\Security\User\CodeLoginUser;
+use Terminal42\CodeloginBundle\Security\User\CodeLoginUser;
 
 /**
  * @param string $code_param
