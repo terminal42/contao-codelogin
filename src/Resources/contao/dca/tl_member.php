@@ -19,7 +19,7 @@ $GLOBALS['TL_DCA']['tl_member']['fields']['login_code'] = [
 ];
 
 /**
- * Adjust mandatoriness of the rest login fields
+ * Adjust mandatoriness of the regular login fields
  */
 $GLOBALS['TL_DCA']['tl_member']['fields']['username']['eval']['mandatory']   = false;
 $GLOBALS['TL_DCA']['tl_member']['fields']['username']['eval']['nullIfEmpty'] = true;
