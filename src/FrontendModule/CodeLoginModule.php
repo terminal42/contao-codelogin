@@ -10,6 +10,9 @@ use Contao\Module;
 use Patchwork\Utf8;
 use Terminal42\CodeLoginBundle\Security\User\CodeLoginUser;
 
+/**
+ * @param string $code_param
+ */
 class CodeLoginModule extends Module
 {
     /**
@@ -49,19 +52,35 @@ class CodeLoginModule extends Module
      */
     protected function compile()
     {
-        $formId = 'login_code_' . $this->id;
+        $code = $this->getCode();
 
-        if (Input::post('FORM_SUBMIT') === $formId) {
-            if ('' !== (string) Input::post('login_code')
-                && CodeLoginUser::getInstance()->loginWithCode(Input::post('login_code'))
-            ) {
+        if (null !== $code) {
+            if (CodeLoginUser::getInstance()->loginWithCode($code)) {
                 Frontend::jumpToOrReload($this->jumpTo);
             }
 
             $this->Template->message = $GLOBALS['TL_LANG']['MSC']['code_login.validationFailed'];
         }
 
-        $this->Template->formId = $formId;
+        $this->Template->formId = $this->getFormId();
         $this->Template->action = Environment::get('request');
+    }
+
+    private function getCode(): ?string
+    {
+        if (!empty($this->code_param)) {
+            $code = (string) Input::get($this->code_param);
+        }
+
+        if (Input::post('FORM_SUBMIT') === $this->getFormId()) {
+            $code = (string) Input::post('login_code');
+        }
+
+        return $code ?: null;
+    }
+
+    private function getFormId()
+    {
+        return 'login_code_' . $this->id;
     }
 }
