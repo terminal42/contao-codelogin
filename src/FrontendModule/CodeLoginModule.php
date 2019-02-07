@@ -3,8 +3,8 @@
 namespace Terminal42\CodeLoginBundle\FrontendModule;
 
 use Contao\BackendTemplate;
-use Contao\Controller;
 use Contao\Environment;
+use Contao\Frontend;
 use Contao\Input;
 use Contao\Module;
 use Patchwork\Utf8;
@@ -55,7 +55,7 @@ class CodeLoginModule extends Module
             if ('' !== (string) Input::post('login_code')
                 && CodeLoginUser::getInstance()->loginWithCode(Input::post('login_code'))
             ) {
-                Controller::reload();
+                Frontend::jumpToOrReload($this->jumpTo);
             }
 
             $this->Template->message = $GLOBALS['TL_LANG']['MSC']['code_login.validationFailed'];
