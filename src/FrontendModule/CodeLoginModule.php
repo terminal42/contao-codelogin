@@ -3,10 +3,11 @@
 namespace Terminal42\CodeloginBundle\FrontendModule;
 
 use Contao\BackendTemplate;
+use Contao\Controller;
 use Contao\Environment;
-use Contao\Frontend;
 use Contao\Input;
 use Contao\Module;
+use Contao\PageModel;
 use Patchwork\Utf8;
 use Terminal42\CodeloginBundle\Security\User\CodeLoginUser;
 
@@ -40,6 +41,13 @@ class CodeLoginModule extends Module
             return $template->parse();
         }
 
+        if (!empty($this->code_param)
+            && !empty($code = (string) Input::get($this->code_param))
+            && CodeLoginUser::getInstance()->loginWithCode($code)
+        ) {
+            $this->redirectAfterLogin();
+        }
+
         if (FE_USER_LOGGED_IN) {
             return '';
         }
@@ -52,11 +60,9 @@ class CodeLoginModule extends Module
      */
     protected function compile()
     {
-        $code = $this->getCode();
-
-        if (null !== $code) {
-            if (CodeLoginUser::getInstance()->loginWithCode($code)) {
-                Frontend::jumpToOrReload($this->jumpTo);
+        if (Input::post('FORM_SUBMIT') === $this->getFormId()) {
+            if (CodeLoginUser::getInstance()->loginWithCode((string) Input::post('login_code'))) {
+                $this->redirectAfterLogin();
             }
 
             $this->Template->message = $GLOBALS['TL_LANG']['MSC']['code_login.validationFailed'];
@@ -66,17 +72,19 @@ class CodeLoginModule extends Module
         $this->Template->action = Environment::get('request');
     }
 
-    private function getCode(): ?string
+    private function redirectAfterLogin()
     {
-        if (!empty($this->code_param)) {
-            $code = (string) Input::get($this->code_param);
+        $jumpTo = null;
+
+        if ($this->jumpTo) {
+            $jumpTo = PageModel::findByPk($this->jumpTo);
         }
 
-        if (Input::post('FORM_SUBMIT') === $this->getFormId()) {
-            $code = (string) Input::post('login_code');
+        if (null === $jumpTo) {
+            $jumpTo = $GLOBALS['objPage'];
         }
 
-        return $code ?: null;
+        Controller::redirect($jumpTo->getFrontendUrl());
     }
 
     private function getFormId()
